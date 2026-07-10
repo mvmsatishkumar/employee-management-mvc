@@ -4,6 +4,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
 
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans
@@ -13,7 +14,9 @@
            https://www.springframework.org/schema/context/spring-context.xsd
 
            http://www.springframework.org/schema/mvc
-           https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+           https://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/tx
+           https://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- Scan all Spring components -->
     <context:component-scan
@@ -21,5 +24,61 @@
 
     <!-- Enable Spring MVC annotation support -->
     <mvc:annotation-driven/>
+
+    <context:property-placeholder location="classpath:database.properties"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+    </bean>
+
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+        <property name="dataSource" ref="dataSource"/>
+
+        <property name="packagesToScan"
+                  value="com.satish.employeemanagementmvc.entity"/>
+
+        <property name="hibernateProperties">
+
+            <props>
+
+                <prop key="hibernate.dialect">
+                    ${hibernate.dialect}
+                </prop>
+
+                <prop key="hibernate.show_sql">
+                    ${hibernate.show_sql}
+                </prop>
+
+                <prop key="hibernate.format_sql">
+                    ${hibernate.format_sql}
+                </prop>
+
+                <prop key="hibernate.hbm2ddl.auto">
+                    ${hibernate.hbm2ddl.auto}
+                </prop>
+
+            </props>
+
+        </property>
+
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+
+        <property name="sessionFactory" ref="sessionFactory"/>
+
+    </bean>
 
 </beans>
