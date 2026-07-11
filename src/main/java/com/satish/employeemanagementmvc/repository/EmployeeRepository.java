@@ -1,11 +1,18 @@
 package com.satish.employeemanagementmvc.repository;
 
-import org.springframework.stereotype.Repository;
+import com.satish.employeemanagementmvc.entity.Employee;
 
-@Repository
-public class EmployeeRepository {
+import java.util.List;
 
-    public String getEmployees() {
-        return "Employees from repository...";
-    }
+public interface EmployeeRepository {
+
+    void save(Employee employee);
+
+    Employee findById(Long id);
+
+    List<Employee> findAll();
+
+    void update(Employee employee);
+
+    void delete(Long id);
 }
