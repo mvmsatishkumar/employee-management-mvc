@@ -1,7 +1,8 @@
-package com.satish.employeemanagementmvc.repository;
+package com.satish.employeemanagementmvc.repository.implementation;
 
 import com.satish.employeemanagementmvc.entity.Employee;
 
+import com.satish.employeemanagementmvc.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

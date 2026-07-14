@@ -3,6 +3,8 @@ package com.satish.employeemanagementmvc.controller;
 import com.satish.employeemanagementmvc.entity.Employee;
 import com.satish.employeemanagementmvc.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,32 +17,36 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public List<Employee> getEmployees() {
-        return employeeService.findAllEmployees();
+    public ResponseEntity<List<Employee>> getEmployees() {
+        List<Employee> employees = employeeService.findAllEmployees();
+        return ResponseEntity.ok(employees);
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployee(@PathVariable("id") Long id) {
-        return employeeService.getEmployee(id);
+    public ResponseEntity<Employee> getEmployee(@PathVariable("id") Long id) {
+        Employee employee = employeeService.getEmployee(id);
+        return ResponseEntity.ok(employee);
     }
 
     @PostMapping
-    public String addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
-        return "Employee Added Successfully";
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+        Employee saved = employeeService.addEmployee(employee);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(saved);
     }
 
     @PutMapping ("/{id}")
-    public String editEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
+    public ResponseEntity<Employee> editEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
         employee.setId(id);
-        employeeService.updateEmployee(employee);
-        return "Employee Updated Successfully";
+        Employee updated = employeeService.updateEmployee(employee);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteEmployee(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
-        return "Employee Deleted Successfully";
+        return ResponseEntity.noContent().build();
     }
 
 }
