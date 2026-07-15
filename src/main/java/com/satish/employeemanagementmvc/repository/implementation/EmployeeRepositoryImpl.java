@@ -42,11 +42,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public void delete(Long id) {
-        Employee employee = currentSession().find(Employee.class, id);
-        if(employee != null){
+    public void delete(Employee employee) {
             currentSession().remove(employee);
-        }
     }
 
 }

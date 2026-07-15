@@ -1,16 +1,17 @@
 package com.satish.employeemanagementmvc.service;
 
-import com.satish.employeemanagementmvc.entity.Employee;
+import com.satish.employeemanagementmvc.dto.EmployeeRequestDTO;
+import com.satish.employeemanagementmvc.dto.EmployeeResponseDTO;
 import java.util.List;
 
 public interface EmployeeService {
-    List<Employee> findAllEmployees();
+    List<EmployeeResponseDTO> findAllEmployees();
 
-    Employee getEmployee(Long id);
+    EmployeeResponseDTO getEmployee(Long id);
 
-    Employee addEmployee(Employee employee);
+    EmployeeResponseDTO addEmployee(EmployeeRequestDTO employeeRequestDTO);
 
-    Employee updateEmployee(Employee employee);
+    EmployeeResponseDTO updateEmployee(Long id, EmployeeRequestDTO employeeRequestDTO);
 
     void deleteEmployee(Long id);
 

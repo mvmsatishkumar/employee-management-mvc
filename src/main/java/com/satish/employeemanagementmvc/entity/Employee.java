@@ -3,6 +3,9 @@ package com.satish.employeemanagementmvc.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 @Table(name = "employee")
 @Getter
@@ -21,4 +24,10 @@ public class Employee {
     private String department;
 
     private Double salary;
+
+    private String email;
+
+    private String designation;
+
+    private LocalDate joiningDate;
 }
