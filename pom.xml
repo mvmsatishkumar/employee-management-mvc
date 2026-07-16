@@ -10,36 +10,73 @@
   <url>https://maven.apache.org</url>
 
   <properties>
+
+    <!-- Spring Framework version -->
     <spring.version>6.2.18</spring.version>
+
+    <!-- Hibernate ORM version -->
     <hibernate.version>6.5.2.Final</hibernate.version>
+
+    <!-- Hibernate Validator version -->
+    <hibernate.validator.version>8.0.2.Final</hibernate.validator.version>
+
+    <!-- PostgreSQL JDBC Driver version -->
     <postgresql.version>42.7.11</postgresql.version>
+
+    <!-- Jackson JSON library version -->
     <jackson.version>2.18.4</jackson.version>
 
+    <!-- Java compiler target version -->
     <maven.compiler.release>21</maven.compiler.release>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
+    <!-- Project source file encoding -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  </properties>
 
   <dependencies>
 
+    <!-- ========================================================= -->
+    <!--                  Spring Framework                         -->
+    <!-- ========================================================= -->
+
+    <!-- Spring MVC for REST controllers, request handling, DispatcherServlet, and MVC infrastructure -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
     </dependency>
 
+    <!-- Spring ORM integration with Hibernate and transaction management -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- ========================================================= -->
+    <!--                  Persistence Layer                        -->
+    <!-- ========================================================= -->
+
+    <!-- Hibernate ORM implementation for mapping Java objects to database tables -->
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
 
+    <!-- PostgreSQL JDBC driver for database connectivity -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
     </dependency>
 
+    <!-- ========================================================= -->
+    <!--                 Servlet Container                         -->
+    <!-- ========================================================= -->
+
+    <!-- Servlet API provided by the external Tomcat server -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
@@ -47,18 +84,40 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- ========================================================= -->
+    <!--                  JSON Processing                          -->
+    <!-- ========================================================= -->
+
+    <!-- Converts Java objects to JSON and JSON to Java objects -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
     </dependency>
 
+    <!-- Adds support for Java Time API (LocalDate, LocalDateTime, etc.) -->
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
 
+    <!-- ========================================================= -->
+    <!--                  Bean Validation                          -->
+    <!-- ========================================================= -->
+
+    <!-- Bean Validation implementation used by Spring for @Valid, @NotBlank, @Email, etc. -->
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate.validator.version}</version>
+    </dependency>
+
+    <!-- ========================================================= -->
+    <!--                  Development Utilities                    -->
+    <!-- ========================================================= -->
+
+    <!-- Generates boilerplate code like getters, setters, constructors, equals, hashCode, etc. -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -66,17 +125,20 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
+    <!-- ========================================================= -->
+    <!--                 Optional Dependencies                     -->
+    <!-- ========================================================= -->
 
-<!--    <dependency>-->
-<!--      <groupId>org.springframework</groupId>-->
-<!--      <artifactId>spring-tx</artifactId>-->
-<!--      <version>${spring.version}</version>-->
-<!--    </dependency>-->
+    <!--
+    Spring Transaction module.
+    Not required explicitly because spring-orm already includes it transitively.
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    -->
 
   </dependencies>
   <build>
