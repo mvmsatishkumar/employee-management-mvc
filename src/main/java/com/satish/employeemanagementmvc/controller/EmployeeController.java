@@ -1,15 +1,17 @@
 package com.satish.employeemanagementmvc.controller;
 
+import com.satish.employeemanagementmvc.dto.EmployeePageResponseDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeRequestDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeResponseDTO;
+import com.satish.employeemanagementmvc.dto.EmployeeSearchRequestDTO;
 import com.satish.employeemanagementmvc.service.EmployeeService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,8 +21,10 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeResponseDTO>> getEmployees() {
-        List<EmployeeResponseDTO> employeeResponses = employeeService.findAllEmployees();
+    public ResponseEntity<EmployeePageResponseDTO> getEmployees(
+            @Valid EmployeeSearchRequestDTO request
+            ) {
+        EmployeePageResponseDTO employeeResponses = employeeService.searchEmployees(request);
         return ResponseEntity.ok(employeeResponses);
     }
 
@@ -39,7 +43,7 @@ public class EmployeeController {
 
     @PutMapping ("/{id}")
     public ResponseEntity<EmployeeResponseDTO> editEmployee(@PathVariable("id") Long id,
-                                                 @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+                                                 @RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
 
         EmployeeResponseDTO updated = employeeService.updateEmployee(id, employeeRequestDTO);
         return ResponseEntity.ok(updated);

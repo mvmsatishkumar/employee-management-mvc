@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -29,5 +28,6 @@ public class Employee {
 
     private String designation;
 
+    @Column(name = "joining_date")
     private LocalDate joiningDate;
 }

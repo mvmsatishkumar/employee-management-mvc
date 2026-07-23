@@ -1,11 +1,12 @@
 package com.satish.employeemanagementmvc.service;
 
+import com.satish.employeemanagementmvc.dto.EmployeePageResponseDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeRequestDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeResponseDTO;
-import java.util.List;
+import com.satish.employeemanagementmvc.dto.EmployeeSearchRequestDTO;
 
 public interface EmployeeService {
-    List<EmployeeResponseDTO> findAllEmployees();
+    EmployeePageResponseDTO searchEmployees(EmployeeSearchRequestDTO request);
 
     EmployeeResponseDTO getEmployee(Long id);
 

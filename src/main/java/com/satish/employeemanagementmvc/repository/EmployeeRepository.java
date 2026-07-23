@@ -1,5 +1,6 @@
 package com.satish.employeemanagementmvc.repository;
 
+import com.satish.employeemanagementmvc.dto.EmployeeSearchRequestDTO;
 import com.satish.employeemanagementmvc.entity.Employee;
 
 import java.util.List;
@@ -10,9 +11,11 @@ public interface EmployeeRepository {
 
     Employee findById(Long id);
 
-    List<Employee> findAll();
+    List<Employee> searchEmployees(EmployeeSearchRequestDTO request, int offset, int limit);
 
     void update(Employee employee);
 
     void delete(Employee employee);
+
+    long countSearchEmployees(EmployeeSearchRequestDTO request);
 }
