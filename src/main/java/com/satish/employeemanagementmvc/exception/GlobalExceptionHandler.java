@@ -2,6 +2,7 @@ package com.satish.employeemanagementmvc.exception;
 
 import com.satish.employeemanagementmvc.dto.ErrorResponse;
 
+import com.satish.employeemanagementmvc.dto.ValidationErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +21,26 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleEmployeeNotFound(EmployeeNotFoundException e,
-                                                                HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleEmployeeNotFound(
+            EmployeeNotFoundException e,
+            HttpServletRequest request) {
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        return ResponseEntity.status(status)
                 .body(new ErrorResponse(
                         LocalDateTime.now().toString(),
-                        HttpStatus.NOT_FOUND.value(),
-                        HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        status.value(),
+                        status.getReasonPhrase(),
                         e.getMessage(),
                         request.getRequestURI()
                 ));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidInputs(MethodArgumentNotValidException e,
-                                                             HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleInvalidInputs(
+            MethodArgumentNotValidException e,
+            HttpServletRequest request) {
+
         BindingResult bindingResult = e.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
@@ -45,14 +50,32 @@ public class GlobalExceptionHandler {
                         error -> Objects.requireNonNull(error.getDefaultMessage())
                 ));
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
                 .body(new ErrorResponse(
                         LocalDateTime.now().toString(),
-                        HttpStatus.BAD_REQUEST.value(),
-                        HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        status.value(),
+                        status.getReasonPhrase(),
                         "Validation failed",
                         request.getRequestURI(),
                         errorMap
+                ));
+
+    }
+
+    @ExceptionHandler(InvalidSearchCriteriaException.class)
+    public ResponseEntity<ValidationErrorResponse> invalidCriteria(
+            InvalidSearchCriteriaException e,
+            HttpServletRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
+                .body(new ValidationErrorResponse(
+                        LocalDateTime.now().toString(),
+                        status.value(),
+                        request.getRequestURI(),
+                        status.getReasonPhrase(),
+                        e.getErrors()
                 ));
 
     }

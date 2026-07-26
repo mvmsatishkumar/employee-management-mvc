@@ -12,7 +12,7 @@ public class ErrorResponse {
 
     private String timeStamp;
     private int status;
-    private String error;
+    private String reason;
     private String message;
     private String path;
     private Map<String, String> validationErrors;
@@ -26,7 +26,7 @@ public class ErrorResponse {
 
         this.timeStamp = timeStamp;
         this.status = status;
-        this.error = error;
+        this.reason = error;
         this.message = message;
         this.path = path;
     }
