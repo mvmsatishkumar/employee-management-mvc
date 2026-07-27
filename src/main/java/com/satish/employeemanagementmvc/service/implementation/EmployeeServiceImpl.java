@@ -9,13 +9,12 @@ import com.satish.employeemanagementmvc.enums.SortDirection;
 import com.satish.employeemanagementmvc.enums.SortField;
 import com.satish.employeemanagementmvc.exception.EmployeeNotFoundException;
 import com.satish.employeemanagementmvc.exception.InvalidSearchCriteriaException;
+import com.satish.employeemanagementmvc.mapper.EmployeeMapper;
 import com.satish.employeemanagementmvc.repository.EmployeeRepository;
 import com.satish.employeemanagementmvc.service.EmployeeService;
-import com.satish.employeemanagementmvc.mapper.EmployeeMapper;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -140,7 +139,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private String normalize(String string) {
 
-        if (string == null) return null;
+        if (string == null) {
+            return null;
+        }
 
         string = string.trim();
         return string.isEmpty() ? null : string.toLowerCase(Locale.ROOT);

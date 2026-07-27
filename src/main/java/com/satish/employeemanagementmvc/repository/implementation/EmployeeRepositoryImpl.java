@@ -4,7 +4,6 @@ import com.satish.employeemanagementmvc.dto.EmployeeSearchRequestDTO;
 import com.satish.employeemanagementmvc.entity.Employee;
 import com.satish.employeemanagementmvc.enums.SortField;
 import com.satish.employeemanagementmvc.repository.EmployeeRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -145,7 +144,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private void bindParameters(
             Query<?> query,
-            Map<String,Object> parameters) {
+            Map<String, Object> parameters) {
 
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
