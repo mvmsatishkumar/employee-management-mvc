@@ -5,6 +5,8 @@ import com.satish.employeemanagementmvc.dto.EmployeeRequestDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeResponseDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeSearchRequestDTO;
 import com.satish.employeemanagementmvc.entity.Employee;
+import com.satish.employeemanagementmvc.enums.SortDirection;
+import com.satish.employeemanagementmvc.enums.SortField;
 import com.satish.employeemanagementmvc.exception.EmployeeNotFoundException;
 import com.satish.employeemanagementmvc.exception.InvalidSearchCriteriaException;
 import com.satish.employeemanagementmvc.repository.EmployeeRepository;
@@ -52,6 +54,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // Business validation
         validateSearchRequest(request);
+
+        //Default sorting
+        if (request.getSortField() == null) {
+            request.setSortField(SortField.ID);
+        }
+        if (request.getSortDirection() == null) {
+            request.setSortDirection(SortDirection.ASC);
+        }
 
 
         // Repository

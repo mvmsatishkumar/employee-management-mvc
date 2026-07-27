@@ -1,5 +1,7 @@
 package com.satish.employeemanagementmvc.dto;
 
+import com.satish.employeemanagementmvc.enums.SortDirection;
+import com.satish.employeemanagementmvc.enums.SortField;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -36,5 +38,9 @@ public class EmployeeSearchRequestDTO {
 
     @Positive
     private Integer size;
+
+    private SortField sortField;
+
+    private SortDirection sortDirection;
 
 }
