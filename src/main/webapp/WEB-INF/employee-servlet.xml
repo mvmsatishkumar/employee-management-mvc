@@ -15,6 +15,7 @@
 
            http://www.springframework.org/schema/mvc
            https://www.springframework.org/schema/mvc/spring-mvc.xsd
+
            http://www.springframework.org/schema/tx
            https://www.springframework.org/schema/tx/spring-tx.xsd">
 
@@ -23,12 +24,24 @@
             base-package="com.satish.employeemanagementmvc"/>
 
     <!-- Enable Spring MVC annotation support -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <context:property-placeholder location="classpath:database.properties"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    
+
+    <!-- Custom Conversion Service -->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+
+        <property name="converters">
+            <set>
+                <ref bean="summaryFieldConverter"/>
+            </set>
+        </property>
+
+    </bean>
+
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
@@ -38,7 +51,6 @@
         <property name="password" value="${jdbc.password}"/>
 
     </bean>
-
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">

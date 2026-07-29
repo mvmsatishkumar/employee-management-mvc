@@ -18,4 +18,5 @@ public interface EmployeeRepository {
     void delete(Employee employee);
 
     long countSearchEmployees(EmployeeSearchRequestDTO request);
+
 }
