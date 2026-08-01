@@ -1,0 +1,79 @@
+<div class="employees-page">
+  <!-- ================= Header ================= -->
+
+  <div class="page-header">
+    <div class="page-title">
+      <h2>Employees</h2>
+      <p class="muted-text">Manage employee records, roles, and profiles.</p>
+    </div>
+
+    <div class="page-actions">
+      <button
+        id="refreshEmployeesButton"
+        class="secondary-button"
+        type="button"
+        aria-label="Refresh employee list"
+      >
+        <i data-lucide="refresh-cw" aria-hidden="true"></i>
+        <span>Refresh</span>
+      </button>
+
+      <button id="openEmployeeFormButton" class="primary-button" type="button">
+        <i data-lucide="user-plus" aria-hidden="true"></i>
+        <span>Add Employee</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="page-actions page-actions--spaced">
+    <div class="search-bar search-bar--small">
+      <i data-lucide="search" aria-hidden="true"></i>
+      <input
+        id="employeeSearch"
+        type="text"
+        placeholder="Search employee by ID..."
+        aria-label="Search employee by ID"
+      />
+    </div>
+
+    <div id="employeePageInfo" class="muted-text" aria-live="polite"></div>
+  </div>
+
+  <div
+    id="employeeStatus"
+    class="page-state page-state--info"
+    role="status"
+    aria-live="polite"
+  >
+    Loading employees…
+  </div>
+
+  <!-- ================= Employee Table ================= -->
+
+  <section class="table-section" aria-label="Employee List">
+    <div class="table-wrapper">
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="employeeTableBody">
+          <tr class="empty-row">
+            <td colspan="6">Loading employees…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= Pagination ================= -->
+
+  <nav id="employeePagination" class="pagination" aria-label="Employee pages"></nav>
+</div>

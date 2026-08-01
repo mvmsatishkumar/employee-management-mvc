@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Employee Management Platform</title>
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/employees.css" />
+    <link rel="stylesheet" href="css/search.css" />
+    <link rel="stylesheet" href="css/summary.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- ================= Sidebar ================= -->
+
+      <aside class="sidebar" aria-label="Main Navigation">
+        <div class="logo">
+          <div class="logo-icon" aria-hidden="true">EMP</div>
+          <span style="font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em;">
+            Employee Platform
+          </span>
+        </div>
+
+        <nav class="navigation">
+          <a href="#" class="nav-item" data-page="dashboard" aria-label="Dashboard">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="#" class="nav-item" data-page="employees" aria-label="Employees">
+            <i data-lucide="users"></i>
+            <span>Employees</span>
+          </a>
+
+          <a href="#" class="nav-item" data-page="search" aria-label="Search Employees">
+            <i data-lucide="search"></i>
+            <span>Search</span>
+          </a>
+
+          <a href="#" class="nav-item" data-page="departments" aria-label="Departments Summary">
+            <i data-lucide="building-2"></i>
+            <span>Departments</span>
+          </a>
+
+          <a href="#" class="nav-item" data-page="designations" aria-label="Designations Summary">
+            <i data-lucide="briefcase"></i>
+            <span>Designations</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- ================= Main ================= -->
+
+      <main class="main">
+        <header class="header">
+          <div class="header-left">
+            <h1>Employee Management Platform</h1>
+          </div>
+
+          <div class="header-right">
+            <button class="icon-button" aria-label="Notifications">
+              <i data-lucide="bell"></i>
+            </button>
+
+            <div class="profile">
+              <div class="profile-avatar" aria-hidden="true">A</div>
+              <span>Admin</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dynamic page loads here -->
+        <section id="content" class="content" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <!-- Global employee form modal -->
+    <div id="employeeFormBackdrop" class="modal-backdrop"></div>
+    <div id="employeeFormModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="employeeFormTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <h3 id="employeeFormTitle">Add employee</h3>
+            <p id="employeeFormSubtitle">Enter the employee details below.</p>
+          </div>
+          <button
+            id="employeeCloseButton"
+            class="secondary-button"
+            type="button"
+            aria-label="Close modal"
+          >
+            Close
+          </button>
+        </div>
+
+        <form id="employeeForm" class="form-card" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="employeeName">Name</label>
+              <input
+                id="employeeName"
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder="e.g. Satish Kumar"
+                required
+              />
+            </div>
+
+            <div class="form-group" id="employeeIdGroup" style="display: none">
+              <label for="employeeId">Employee ID</label>
+              <input
+                id="employeeId"
+                name="employeeId"
+                type="text"
+                readonly
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="employeeEmail">Email</label>
+              <input
+                id="employeeEmail"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="e.g. satish@example.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="employeeDepartment">Department</label>
+              <select id="employeeDepartment" name="department" required>
+                <option value="">Loading departments…</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="employeeDesignation">Designation</label>
+              <select id="employeeDesignation" name="designation" required>
+                <option value="">Loading designations…</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="employeeSalary">Salary (₹)</label>
+              <input
+                id="employeeSalary"
+                name="salary"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="e.g. 750000"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="employeeJoiningDate">Joining date</label>
+              <input
+                id="employeeJoiningDate"
+                name="joiningDate"
+                type="date"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="search-actions">
+            <button
+              id="employeeCancelButton"
+              class="secondary-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              id="employeeSubmitButton"
+              class="primary-button"
+              type="submit"
+            >
+              Create employee
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
