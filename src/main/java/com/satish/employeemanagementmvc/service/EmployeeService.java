@@ -1,5 +1,6 @@
 package com.satish.employeemanagementmvc.service;
 
+import com.satish.employeemanagementmvc.dto.DashboardDTO;
 import com.satish.employeemanagementmvc.dto.EmployeePageResponseDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeRequestDTO;
 import com.satish.employeemanagementmvc.dto.EmployeeResponseDTO;
@@ -16,4 +17,9 @@ public interface EmployeeService {
 
     void deleteEmployee(Long id);
 
+    boolean existsByEmail(String email);
+
+    boolean existsByEmail(String email, Long currentId);
+
+    DashboardDTO getDashboardData();
 }

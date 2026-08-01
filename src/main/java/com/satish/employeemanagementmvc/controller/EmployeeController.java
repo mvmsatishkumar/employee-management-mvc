@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/employees")
@@ -20,10 +20,15 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @GetMapping("/dashboard")
+    public ResponseEntity<com.satish.employeemanagementmvc.dto.DashboardDTO> getDashboard() {
+        return ResponseEntity.ok(employeeService.getDashboardData());
+    }
+
     @GetMapping
     public ResponseEntity<EmployeePageResponseDTO> getEmployees(
             @Valid EmployeeSearchRequestDTO request
-            ) {
+    ) {
         EmployeePageResponseDTO employeeResponses = employeeService.searchEmployees(request);
         return ResponseEntity.ok(employeeResponses);
     }
@@ -41,9 +46,9 @@ public class EmployeeController {
                 .body(employeeResponseDTO);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> editEmployee(@PathVariable("id") Long id,
-                                                 @RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
+                                                            @RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
 
         EmployeeResponseDTO updated = employeeService.updateEmployee(id, employeeRequestDTO);
         return ResponseEntity.ok(updated);
