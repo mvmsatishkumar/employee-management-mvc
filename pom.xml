@@ -125,21 +125,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- ========================================================= -->
-    <!--                 Optional Dependencies                     -->
-    <!-- ========================================================= -->
-
-    <!--
-    Spring Transaction module.
-    Not required explicitly because spring-orm already includes it transitively.
-
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-tx</artifactId>
-        <version>${spring.version}</version>
-    </dependency>
-    -->
-
   </dependencies>
   <build>
 
