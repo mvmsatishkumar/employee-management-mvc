@@ -17,7 +17,6 @@ public class SummaryService {
 
     @Transactional(readOnly = true)
     public List<SummaryDTO> getSummary(SummaryField field) {
-
         return summaryRepository.findSummary(field);
     }
 }
