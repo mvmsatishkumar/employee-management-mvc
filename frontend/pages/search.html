@@ -1,0 +1,129 @@
+<div class="search-page">
+  <div class="page-header">
+    <div class="page-title">
+      <h2>Search Employees</h2>
+      <p class="muted-text">Filter workforce records by department, designation, salary, or joining date.</p>
+    </div>
+  </div>
+
+  <form id="searchFilters" class="search-card" novalidate aria-label="Employee Search Filters">
+    <div class="filters-grid">
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select id="department" name="department">
+          <option value="">Loading departments…</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <select id="designation" name="designation">
+          <option value="">Loading designations…</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="minSalary">Minimum salary (₹)</label>
+        <input
+          id="minSalary"
+          name="minSalary"
+          type="number"
+          min="0"
+          step="0.01"
+          inputmode="decimal"
+          placeholder="e.g. 300000"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="maxSalary">Maximum salary (₹)</label>
+        <input
+          id="maxSalary"
+          name="maxSalary"
+          type="number"
+          min="0"
+          step="0.01"
+          inputmode="decimal"
+          placeholder="e.g. 1200000"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="joiningFrom">Joined from</label>
+        <input id="joiningFrom" name="joiningFrom" type="date" />
+      </div>
+
+      <div class="form-group">
+        <label for="joiningTo">Joined to</label>
+        <input id="joiningTo" name="joiningTo" type="date" />
+      </div>
+
+      <div class="form-group">
+        <label for="sortField">Sort by</label>
+        <select id="sortField" name="sortField">
+          <option value="ID">Employee ID</option>
+          <option value="NAME">Name</option>
+          <option value="DEPARTMENT">Department</option>
+          <option value="DESIGNATION">Designation</option>
+          <option value="SALARY">Salary</option>
+          <option value="JOINING_DATE">Joining date</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="sortDirection">Order</label>
+        <select id="sortDirection" name="sortDirection">
+          <option value="ASC" selected>Ascending</option>
+          <option value="DESC">Descending</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="search-actions">
+      <button id="resetButton" class="secondary-button" type="button">
+        Reset
+      </button>
+      <button id="searchButton" class="primary-button" type="submit">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <span>Search</span>
+      </button>
+    </div>
+  </form>
+
+  <section
+    class="table-section search-results is-hidden"
+    aria-labelledby="searchResultsTitle"
+  >
+    <div class="section-header">
+      <div>
+        <h3 id="searchResultsTitle">Results</h3>
+        <p id="resultCount" class="muted-text" aria-live="polite">
+          Use the search form above to load results.
+        </p>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Joined</th>
+          </tr>
+        </thead>
+        <tbody id="employeeTableBody"></tbody>
+      </table>
+    </div>
+
+    <div id="searchState" class="search-state" aria-live="polite"></div>
+    <nav
+      id="searchPagination"
+      class="pagination"
+      aria-label="Search result pages"
+    ></nav>
+  </section>
+</div>
