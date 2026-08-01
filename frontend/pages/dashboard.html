@@ -1,0 +1,90 @@
+<div class="dashboard">
+  <!-- ================= Page Header ================= -->
+
+  <div class="dashboard-header">
+    <div>
+      <h2>Dashboard</h2>
+      <p class="muted-text">Overview of workforce analytics and employee records.</p>
+    </div>
+
+    <button id="dashboardRefreshBtn" class="secondary-button" type="button" aria-label="Refresh Dashboard">
+      <i data-lucide="refresh-cw" aria-hidden="true"></i>
+      <span>Refresh</span>
+    </button>
+  </div>
+
+  <!-- ================= Statistics ================= -->
+
+  <div class="stats-grid" role="region" aria-label="Workforce Statistics">
+    <div class="stat-card">
+      <h3>Employees</h3>
+      <span id="employeeCount" class="stat-value">...</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>Departments</h3>
+      <span id="departmentCount" class="stat-value">...</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>Designations</h3>
+      <span id="designationCount" class="stat-value">...</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>Average Salary</h3>
+      <span id="averageSalary" class="stat-value">...</span>
+    </div>
+  </div>
+
+  <!-- ================= Recent Employees ================= -->
+
+  <section class="table-section" aria-labelledby="recentEmployeesTitle">
+    <div class="section-header">
+      <h3 id="recentEmployeesTitle">Recent Employees</h3>
+      <a href="#" id="dashboardViewAllLink" class="view-all-link">View All</a>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Joined</th>
+          </tr>
+        </thead>
+
+        <tbody id="dashboardRecentTbody">
+          <tr class="empty-row">
+            <td colspan="4">Loading recent hires…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= Quick Actions ================= -->
+
+  <section class="quick-actions" aria-labelledby="quickActionsTitle">
+    <h3 id="quickActionsTitle">Quick Actions</h3>
+
+    <div class="actions-grid">
+      <button id="quickAddEmployeeBtn" class="action-button" type="button">
+        <i data-lucide="user-plus" aria-hidden="true"></i>
+        <span>Add Employee</span>
+      </button>
+
+      <button id="quickSearchEmployeeBtn" class="action-button" type="button">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <span>Search Employee by ID</span>
+      </button>
+
+      <button id="quickDeleteEmployeeBtn" class="action-button" type="button">
+        <i data-lucide="trash-2" aria-hidden="true"></i>
+        <span>Delete Employee</span>
+      </button>
+    </div>
+  </section>
+</div>
