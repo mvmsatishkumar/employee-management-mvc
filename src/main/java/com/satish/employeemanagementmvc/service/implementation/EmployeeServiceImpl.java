@@ -26,8 +26,63 @@ import java.util.Locale;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final com.satish.employeemanagementmvc.repository.implementation.SummaryRepository summaryRepository;
+
     private static final int DEFAULT_PAGE = 0;
     private static final int DEFAULT_SIZE = 10;
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(String email) {
+        return employeeRepository.existsByEmail(email);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(String email, Long currentId) {
+        return employeeRepository.existsByEmailAndIdNot(email, currentId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public com.satish.employeemanagementmvc.dto.DashboardDTO getDashboardData() {
+        List<com.satish.employeemanagementmvc.dto.SummaryDTO> deptSummary =
+                summaryRepository.findSummary(com.satish.employeemanagementmvc.enums.SummaryField.DEPARTMENT);
+        List<com.satish.employeemanagementmvc.dto.SummaryDTO> desigSummary =
+                summaryRepository.findSummary(com.satish.employeemanagementmvc.enums.SummaryField.DESIGNATION);
+
+        EmployeeSearchRequestDTO countRequest = new EmployeeSearchRequestDTO();
+        long totalEmployees = employeeRepository.countSearchEmployees(countRequest);
+
+        long totalDeptCount = deptSummary != null ? deptSummary.size() : 0;
+        long totalDesigCount = desigSummary != null ? desigSummary.size() : 0;
+
+        double totalPayroll = 0;
+        long totalDeptEmployees = 0;
+        if (deptSummary != null) {
+            for (com.satish.employeemanagementmvc.dto.SummaryDTO dto : deptSummary) {
+                totalPayroll += dto.getTotalPayroll() != null ? dto.getTotalPayroll() : 0;
+                totalDeptEmployees += dto.getEmployeeCount() != null ? dto.getEmployeeCount() : 0;
+            }
+        }
+        double avgSalary = totalDeptEmployees > 0 ? Math.round(totalPayroll / totalDeptEmployees) : 0;
+
+        EmployeeSearchRequestDTO recentRequest = new EmployeeSearchRequestDTO();
+        recentRequest.setSortField(SortField.JOINING_DATE);
+        recentRequest.setSortDirection(SortDirection.DESC);
+        List<Employee> recentEntities = employeeRepository.searchEmployees(recentRequest, 0, 5);
+        List<EmployeeResponseDTO> recentDTOs = recentEntities.stream()
+                .map(EmployeeMapper::mapToResponse)
+                .toList();
+
+        return new com.satish.employeemanagementmvc.dto.DashboardDTO(
+                totalEmployees,
+                totalDeptCount,
+                totalDesigCount,
+                avgSalary,
+                recentDTOs
+        );
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -102,18 +157,32 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public EmployeeResponseDTO addEmployee(EmployeeRequestDTO employeeRequestDTO) {
+        String email = normalizeEmail(employeeRequestDTO.getEmail());
+        if (email != null) {
+            Employee existing = employeeRepository.findByEmail(email);
+            if (existing != null) {
+                throw new com.satish.employeemanagementmvc.exception.DuplicateEmailException(email);
+            }
+        }
 
         Employee employee = EmployeeMapper.mapToEntity(employeeRequestDTO);
         employeeRepository.save(employee);
         return EmployeeMapper.mapToResponse(employee);
-
     }
 
     @Override
     @Transactional
     public EmployeeResponseDTO updateEmployee(Long id, EmployeeRequestDTO employeeRequestDTO) {
-
         Employee employee = findEmployeeOrThrow(id);
+
+        String newEmail = normalizeEmail(employeeRequestDTO.getEmail());
+        if (newEmail != null) {
+            Employee existingWithEmail = employeeRepository.findByEmail(newEmail);
+            if (existingWithEmail != null && existingWithEmail.getId() != null && !existingWithEmail.getId().equals(id)) {
+                throw new com.satish.employeemanagementmvc.exception.DuplicateEmailException(newEmail);
+            }
+        }
+
         EmployeeMapper.updateEntity(employee, employeeRequestDTO);
         employeeRepository.update(employee);
         return EmployeeMapper.mapToResponse(employee);
@@ -145,6 +214,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         string = string.trim();
         return string.isEmpty() ? null : string.toLowerCase(Locale.ROOT);
+    }
+
+    private String normalizeEmail(String email) {
+        if (email == null) {
+            return null;
+        }
+
+        String normalized = email.trim();
+        return normalized.isEmpty() ? null : normalized.toLowerCase(Locale.ROOT);
     }
 
     private void validateSearchRequest(EmployeeSearchRequestDTO request) {

@@ -66,6 +66,50 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return currentSession().find(Employee.class, id);
     }
 
+    @Override
+    public Employee findByEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return null;
+        }
+        String hql = "from Employee e where lower(e.email) = :email";
+        return currentSession()
+                .createQuery(hql, Employee.class)
+                .setParameter("email", email.trim().toLowerCase())
+                .uniqueResultOptional()
+                .orElse(null);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+        String hql = "select count(e) from Employee e where lower(e.email) = :email";
+        Long count = currentSession()
+                .createQuery(hql, Long.class)
+                .setParameter("email", email.trim().toLowerCase())
+                .getSingleResult();
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean existsByEmailAndIdNot(String email, Long currentId) {
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+        if (currentId == null) {
+            return existsByEmail(email);
+        }
+        String hql = "select count(e) from Employee e where lower(e.email) = :email and e.id != :currentId";
+        Long count = currentSession()
+                .createQuery(hql, Long.class)
+                .setParameter("email", email.trim().toLowerCase())
+                .setParameter("currentId", currentId)
+                .getSingleResult();
+        return count != null && count > 0;
+    }
+
+
 
     @Override
     public long countSearchEmployees(EmployeeSearchRequestDTO request) {

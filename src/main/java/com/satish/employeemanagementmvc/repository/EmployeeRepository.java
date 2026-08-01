@@ -11,6 +11,12 @@ public interface EmployeeRepository {
 
     Employee findById(Long id);
 
+    Employee findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByEmailAndIdNot(String email, Long currentId);
+
     List<Employee> searchEmployees(EmployeeSearchRequestDTO request, int offset, int limit);
 
     void update(Employee employee);

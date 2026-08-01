@@ -25,6 +25,14 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getDashboardData());
     }
 
+    @GetMapping("/email-exists")
+    public ResponseEntity<java.util.Map<String, Object>> checkEmailExists(
+            @RequestParam("email") String email,
+            @RequestParam(value = "currentId", required = false) Long currentId) {
+        boolean exists = employeeService.existsByEmail(email, currentId);
+        return ResponseEntity.ok(java.util.Map.of("email", email, "exists", exists));
+    }
+
     @GetMapping
     public ResponseEntity<EmployeePageResponseDTO> getEmployees(
             @Valid EmployeeSearchRequestDTO request
