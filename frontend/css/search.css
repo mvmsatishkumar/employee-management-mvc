@@ -1,0 +1,84 @@
+.search-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.search-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+}
+
+/* Search Buttons */
+
+.search-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 4px;
+}
+
+/* Page Header */
+
+.search-page .page-header {
+  margin-bottom: 0;
+}
+
+/* Results subtitle */
+
+.section-header p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.search-results {
+  opacity: 1;
+  max-height: 999px;
+  transition:
+    opacity 220ms ease,
+    max-height 260ms ease;
+}
+
+.search-results.is-hidden {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}

@@ -1,0 +1,41 @@
+.summary-page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table th {
+  text-align: left;
+  padding: 18px 20px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.summary-table td {
+  padding: 18px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.summary-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.summary-table th:nth-child(3),
+.summary-table td:nth-child(3),
+.summary-table th:nth-child(4),
+.summary-table td:nth-child(4) {
+  text-align: right;
+}
+
+.empty-state {
+  padding: 60px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 18px;
+}
