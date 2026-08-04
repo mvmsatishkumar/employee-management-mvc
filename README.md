@@ -68,7 +68,17 @@ The demonstration includes:
 - Designation Summary
 - REST API Testing (Postman)
 
-🎥 Demo Video
+### 🎥 Project Walkthrough
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=gn75q4WcA1g">
+    <img src="docs/images/thumbnail.png" width="100%" alt="Employee Management Platform Demo">
+  </a>
+</p>
+
+<p align="center">
+Click the banner above to watch the complete project walkthrough.
+</p>
 
 ---
 
@@ -228,6 +238,53 @@ The application exposes REST APIs for:
 - Designation Summary
 - Employee Search
 - Email Validation
+
+---
+
+## Project Resources
+
+Additional project resources are included to simplify setup, testing, and evaluation.
+
+### Postman Collection
+
+The complete API collection used throughout development and demonstration is available under:
+
+```text
+docs/postman/
+```
+
+The collection includes requests for:
+
+- Employee CRUD
+- Advanced Search
+- Dashboard Analytics
+- Department Summary
+- Designation Summary
+- Pagination
+- Sorting
+- Validation Scenarios
+
+Import the collection directly into Postman to explore and test every REST endpoint.
+
+---
+
+### Dataset
+
+A production-style PostgreSQL dataset is provided under:
+
+```text
+docs/dataset/
+```
+
+The dataset contains over **10,000 realistic employee records** used to validate:
+
+- Server-side filtering
+- Sorting
+- Pagination
+- Dashboard analytics
+- Query performance
+
+Import the SQL file into PostgreSQL before running the application to reproduce the demonstrated functionality.
 
 ---
 

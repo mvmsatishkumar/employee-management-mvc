@@ -1,0 +1,699 @@
+{
+  "info": {
+    "_postman_id": "a8c1364c-2b17-47bd-86b0-88e759800420",
+    "name": "Employee Management Platform",
+    "description": "Complete REST API collection for the Employee Management Platform built with Spring MVC, Hibernate ORM, and PostgreSQL.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56553384",
+    "_collection_link": "https://go.postman.co/collection/56553384-a8c1364c-2b17-47bd-86b0-88e759800420?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "dashboard"
+              ]
+            },
+            "description": "Returns overall workforce statistics, including total employees, departments, designations, average salary, and recently joined employees."
+          },
+          "response": []
+        }
+      ],
+      "description": "CRUD operations for employee lifecycle management"
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Get Employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of employees with optional sorting support."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employee By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees/100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "100"
+              ]
+            },
+            "description": "Retrieves detailed information for a single employee using the employee ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Rahul Sharma kumar\",\r\n  \"email\": \"rahul.sharmakumar@empplatform.com\",\r\n  \"department\": \"Engineering\",\r\n  \"designation\": \"Software Engineer\",\r\n  \"salary\": 820000,\r\n  \"joiningDate\": \"2020-01-15\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/employees",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Divya Kulkarni\",\r\n  \"email\": \"divya.kulkarni100@empplatform.com\",\r\n  \"department\": \"Sales\",\r\n  \"designation\": \"Sales Manager\",\r\n  \"salary\": 260000.0,\r\n  \"joiningDate\": \"2020-06-06\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/employees/100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "100"
+              ]
+            },
+            "description": "Updates an existing employee while preserving validation rules and duplicate email protection."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Employee",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees/1002",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "1002"
+              ]
+            },
+            "description": "Deletes an employee record using its unique identifier."
+          },
+          "response": []
+        },
+        {
+          "name": "Check Email Exists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees/email-exists?email=rahul.sharma@empplatform.com&currentId=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "email-exists"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "rahul.sharma@empplatform.com"
+                },
+                {
+                  "key": "currentId",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Checks whether an email address already exists before creating or updating an employee."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Advanced Search",
+      "item": [
+        {
+          "name": "Search All Employees",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns the first page of employees using default pagination."
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?department=Engineering&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Engineering"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns employees belonging to the Engineering department."
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Designation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?designation=Software%20Engineer&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "designation",
+                  "value": "Software%20Engineer"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns employees matching the specified designation."
+          },
+          "response": []
+        },
+        {
+          "name": "Salary Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?minSalary=600000&maxSalary=1200000&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "minSalary",
+                  "value": "600000"
+                },
+                {
+                  "key": "maxSalary",
+                  "value": "1200000"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Filters employees within the specified salary range."
+          },
+          "response": []
+        },
+        {
+          "name": "Joining Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?joiningFrom=2020-01-01&joiningTo=2025-01-01&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "joiningFrom",
+                  "value": "2020-01-01"
+                },
+                {
+                  "key": "joiningTo",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns employees who joined within the specified date range."
+          },
+          "response": []
+        },
+        {
+          "name": "Combined Search⭐",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?department=Engineering&designation=Software%20Engineer&minSalary=600000&maxSalary=1200000&joiningFrom=2020-01-01&joiningTo=2025-01-01&sortField=SALARY&sortDirection=DESC&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Engineering"
+                },
+                {
+                  "key": "designation",
+                  "value": "Software%20Engineer"
+                },
+                {
+                  "key": "minSalary",
+                  "value": "600000"
+                },
+                {
+                  "key": "maxSalary",
+                  "value": "1200000"
+                },
+                {
+                  "key": "joiningFrom",
+                  "value": "2020-01-01"
+                },
+                {
+                  "key": "joiningTo",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "sortField",
+                  "value": "SALARY"
+                },
+                {
+                  "key": "sortDirection",
+                  "value": "DESC"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Demonstrates dynamic multi-criteria filtering with server-side pagination and sorting."
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?sortField=NAME&sortDirection=ASC&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "sortField",
+                  "value": "NAME"
+                },
+                {
+                  "key": "sortDirection",
+                  "value": "ASC"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns employees sorted alphabetically."
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by Salary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?sortField=SALARY&sortDirection=DESC&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "sortField",
+                  "value": "SALARY"
+                },
+                {
+                  "key": "sortDirection",
+                  "value": "DESC"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns employees ordered by salary in descending order."
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by Joining Date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?sortField=JOINING_DATE&sortDirection=DESC&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "sortField",
+                  "value": "JOINING_DATE"
+                },
+                {
+                  "key": "sortDirection",
+                  "value": "DESC"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns the most recently joined employees first."
+          },
+          "response": []
+        },
+        {
+          "name": "Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?page=5&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "5"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Demonstrates server-side pagination."
+          },
+          "response": []
+        }
+      ],
+      "description": "StartFragmentSearch employees using multiple optional filters including department, designation, salary range, joining date, sorting, and pagination.EndFragment"
+    },
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "Get Department Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/summary/department",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "summary",
+                "department"
+              ]
+            },
+            "description": "Returns employee count grouped by department for dashboard summaries and analytics."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employees by Department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?department=Engineering&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Engineering"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Returns employee count grouped by department for dashboard summaries and analytics."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Designations",
+      "item": [
+        {
+          "name": "Get Designation Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/summary/designation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "summary",
+                "designation"
+              ]
+            },
+            "description": "Returns employee count grouped by designation for workforce insights."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employees by Designation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?designation=Software%20Engineer&page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "designation",
+                  "value": "Software%20Engineer"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Retrieves employees matching a specific designation with server-side pagination."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    }
+  ]
+}
